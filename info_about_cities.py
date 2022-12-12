@@ -1,6 +1,9 @@
 from geopy.distance import great_circle
 import pandas as pd
-path_file = '/home/silant/Python/goroda/goroda.csv'
+import os
+
+path_dir = os.path.dirname(__file__)
+path_file =  os.path.join(path_dir, 'goroda.csv')
 nas_punkt_df = pd.read_csv(path_file)
 goroda_df = nas_punkt_df[(nas_punkt_df['Тип города'] == 'г') | (nas_punkt_df['Тип региона'] == 'г')]
 goroda_df = goroda_df[goroda_df['Тип н/п'] != 'г']
