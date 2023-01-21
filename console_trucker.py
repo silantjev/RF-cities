@@ -3,7 +3,6 @@ from cities import * # модуль cities с функциями
 
 path_dir = os.path.dirname(__file__)
 path_file =  os.path.join(path_dir, 'goroda.csv')
-path_file = '/home/silant/Python/games/goroda/goroda.csv'
 nas_punkt_df = pd.read_csv(path_file)
 goroda_df = nas_punkt_df[(nas_punkt_df['Тип города'] == 'г') | (nas_punkt_df['Тип региона'] == 'г')]
 goroda_df = goroda_df[goroda_df['Тип н/п'] != 'г']
