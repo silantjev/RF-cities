@@ -1,7 +1,21 @@
 # Это файл с функциями, необходимыми для игры.
 
+import os
 from geopy.distance import great_circle
 import pandas as pd
+
+
+def df_city_load(POP = 200000):
+    path_dir = os.path.dirname(__file__)
+    path_file =  os.path.join(path_dir, 'goroda.csv')
+    nas_punkt_df = pd.read_csv(path_file)
+    goroda_df = nas_punkt_df[(nas_punkt_df['Тип города'] == 'г') | (nas_punkt_df['Тип региона'] == 'г')]
+    goroda_df = goroda_df[goroda_df['Тип н/п'] != 'г']
+    big_cities_df = goroda_df[goroda_df['Население'] > POP] # Оставляем города с населением > POP
+    big_cities_df = big_cities_df[big_cities_df['Регион'] != 'Московская'] # Удалим города из московской области, иначе нас будет сюда затягивать
+
+    return big_cities_df    
+
 
 def city_indices(df, city, region = 'any'):
     """Ищет город city (в регионе region) в датафрейме df"""

@@ -1,16 +1,7 @@
-import os
 from cities import * # модуль cities с функциями
 
-path_dir = os.path.dirname(__file__)
-path_file =  os.path.join(path_dir, 'goroda.csv')
-nas_punkt_df = pd.read_csv(path_file)
-goroda_df = nas_punkt_df[(nas_punkt_df['Тип города'] == 'г') | (nas_punkt_df['Тип региона'] == 'г')]
-goroda_df = goroda_df[goroda_df['Тип н/п'] != 'г']
-POP = 200000
-big_cities_df = goroda_df[goroda_df['Население'] > POP] # Оставляем города с населением > POP
-
 class City():
-    DF = big_cities_df
+    DF = df_city_load()
     def __init__(self,i):
         self.i = i
     
@@ -253,10 +244,10 @@ class Player():
 
 
 class Game():
-    def __init__(self, city_name):
+    def __init__(self, city_name, money=0):
         i = city_indices(City.DF, city_name)[0]
         city = City(i)
-        self.player = Player(city)
+        self.player = Player(city, money)
     
     def play(self, n):
         player = self.player
@@ -305,7 +296,7 @@ def main():
     while True:
         N = 10 # Количество ближайший городов
         city_name = 'Москва' # Начальный город
-        game = Game(city_name)
+        game = Game(city_name, money=10000)
         game.play(N)
         while True:
             resp = input('Хотите ещё сыграть? (y/n): ')

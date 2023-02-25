@@ -1,20 +1,8 @@
 # gui-версия игры
 # с одним обновляющимся окном
 
-import os
 from tkinter import *
 from cities import * # модуль cities с функциями
-
-def df_city_load(POP = 200000):
-    path_dir = os.path.dirname(__file__)
-    path_file =  os.path.join(path_dir, 'goroda.csv')
-    nas_punkt_df = pd.read_csv(path_file)
-    goroda_df = nas_punkt_df[(nas_punkt_df['Тип города'] == 'г') | (nas_punkt_df['Тип региона'] == 'г')]
-    goroda_df = goroda_df[goroda_df['Тип н/п'] != 'г']
-    big_cities_df = goroda_df[goroda_df['Население'] > POP] # Оставляем города с населением > POP
-    big_cities_df = big_cities_df[big_cities_df['Регион'] != 'Московская']
-    return big_cities_df    
-
 
 
 class City():
